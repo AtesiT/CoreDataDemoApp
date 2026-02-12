@@ -6,8 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		3EEA273E2F3E14C90063E196 /* Photo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEA273C2F3E14C90063E196 /* Photo+CoreDataProperties.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		3E023F732F31E2BC00DC8ACB /* CoreDataDemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDataDemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3EEA273C2F3E14C90063E196 /* Photo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -45,6 +50,7 @@
 		3E023F6A2F31E2BC00DC8ACB = {
 			isa = PBXGroup;
 			children = (
+				3EEA273C2F3E14C90063E196 /* Photo+CoreDataProperties.swift */,
 				3E023F752F31E2BC00DC8ACB /* CoreDataDemoApp */,
 				3E023F742F31E2BC00DC8ACB /* Products */,
 			);
@@ -132,6 +138,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EEA273E2F3E14C90063E196 /* Photo+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
