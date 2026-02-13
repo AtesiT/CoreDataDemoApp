@@ -62,8 +62,29 @@ public final class CoreDataManager: NSObject {
          
             appDelegate.saveContext()
         }
-
+    }
+    
+    public func deleteAllPhotos() {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Photo")
         
+        do {
+            let photos = try? context.fetch(fetchRequest) as? [Photo]
+            //  После массива мы проходим и удаляем все фото
+            photos?.forEach { context.delete($0) }
+        }
+        appDelegate.saveContext()
+    }
+    
+    public func deletePhoto(with id: Int16) {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Photo")
+        
+        do {
+            guard let photos = try? context.fetch(fetchRequest) as? [Photo],
+                  let photo = photos.first(where: { $0.id == id }) else {return}
+            //  После того, как нашли нужное нам фото - удаляем его
+            context.delete(photo)
+        }
+        appDelegate.saveContext()
     }
 }
 
