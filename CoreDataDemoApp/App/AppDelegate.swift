@@ -25,5 +25,18 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         return container
     }()
+    //  Container - записан на жестком диске, а context - часть данных, с которыми мы работаем в ОЗУ на данный момент.
+    //  SaveContext позволяет записать измененные данные в БД, без него мы изменим только данные в ОЗУ.
+    func saveContext() {
+        let context = persistentContainer.viewContext
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                let error = error as? NSError
+                fatalError(error?.localizedDescription)
+            }
+        }
+    }
 }
 

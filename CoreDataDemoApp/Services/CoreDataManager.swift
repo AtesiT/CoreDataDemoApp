@@ -16,8 +16,9 @@ public final class CoreDataManager: NSObject {
     }
     
     private var context: NSManagedObjectContext {
-        //  TODO: Make later
+        appDelegate.persistentContainer.viewContext
     }
+    
 }
 
 
