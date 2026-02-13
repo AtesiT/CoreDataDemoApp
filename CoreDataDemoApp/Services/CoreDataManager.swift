@@ -48,6 +48,21 @@ public final class CoreDataManager: NSObject {
             //  Если до этого мы получили массив с фото, то получаем самый первый объект, который равен ID который мы ищем
             return photos?.first(where: { $0.id == id })
         }
+    }
+    
+    public func updatePhoto(with id: Int16, newUrl: String, title: String? = nil) {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Photo")
+        
+        do {
+            guard let photos = try? context.fetch(fetchRequest) as? [Photo],
+                  let photo = photos.first(where: { $0.id == id }) else {return}
+            //  Записываем новые параметры в фото
+            photo.url = newUrl
+            photo.title = title
+         
+            appDelegate.saveContext()
+        }
+
         
     }
 }
