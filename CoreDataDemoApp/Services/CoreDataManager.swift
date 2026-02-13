@@ -18,6 +18,20 @@ public final class CoreDataManager: NSObject {
     private var context: NSManagedObjectContext {
         appDelegate.persistentContainer.viewContext
     }
+    //  MARK: - Create
+    public func createPhoto(_ id: Int16, _ title: String, _ url: String?) {
+        guard let photoEntityDescription = NSEntityDescription.entity(forEntityName: "Photo", in: context) else {
+            return
+        }
+        
+        let photo = Photo(entity: photoEntityDescription, insertInto: context)
+        photo.id = id
+        photo.title = title
+        photo.url = url
+        
+        appDelegate.saveContext()
+    }
+    
     
 }
 
