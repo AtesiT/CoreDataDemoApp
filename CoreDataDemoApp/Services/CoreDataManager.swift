@@ -32,7 +32,24 @@ public final class CoreDataManager: NSObject {
         appDelegate.saveContext()
     }
     
+    public func fetchPhotos() -> [Photo] {
+        //  Создаем запрос к базе данных, который получит все объекты с типом "Photo"
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Photo")
+        do {
+            return (try? context.fetch(fetchRequest) as? [Photo]) ?? []
+        }
+    }
     
+    public func fetchPhoto(_ id: Int16) -> Photo? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Photo")
+        do {
+            //  Также - получаем список фото объектов. Затем кастим до массива фото.
+            let photos = try? context.fetch(fetchRequest) as? [Photo]
+            //  Если до этого мы получили массив с фото, то получаем самый первый объект, который равен ID который мы ищем
+            return photos?.first(where: { $0.id == id })
+        }
+        
+    }
 }
 
 
