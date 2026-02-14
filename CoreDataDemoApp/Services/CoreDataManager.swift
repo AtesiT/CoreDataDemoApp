@@ -32,6 +32,7 @@ public final class CoreDataManager: NSObject {
         appDelegate.saveContext()
     }
     
+    //  MARK: - Read
     public func fetchPhotos() -> [Photo] {
         //  Создаем запрос к базе данных, который получит все объекты с типом "Photo"
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Photo")
@@ -49,7 +50,8 @@ public final class CoreDataManager: NSObject {
             return photos?.first(where: { $0.id == id })
         }
     }
-    
+
+    //  MARK: - Update
     public func updatePhoto(with id: Int16, newUrl: String, title: String? = nil) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Photo")
         
@@ -64,6 +66,7 @@ public final class CoreDataManager: NSObject {
         }
     }
     
+    //  MARK: - Delete
     public func deleteAllPhotos() {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Photo")
         
@@ -86,6 +89,50 @@ public final class CoreDataManager: NSObject {
         }
         appDelegate.saveContext()
     }
+    
+    
+    //  MARK: - Predicates
+    public func fetchPhotoPredicate(_ id: Int16) -> Photo? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Photo")
+        //  Предикат, это способ установить дополнительные параметры для поиска.
+        //  Мы не только будем искать объекты фото благодаря предикату, но и найдём объекты с выбранным ID
+        fetchRequest.predicate = NSPredicate(format: "id == %@", id)
+        do {
+            //  Также - получаем список фото объектов. Затем кастим до массива фото.
+            let photos = try? context.fetch(fetchRequest) as? [Photo]
+            //  Если до этого мы получили массив с фото, то получаем самый первый объект, который равен ID который мы ищем
+            return photos?.first
+        }
+    }
+    
+    public func updatePhotoPredicate(with id: Int16, newUrl: String, title: String? = nil) {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Photo")
+        fetchRequest.predicate = NSPredicate(format: "id == %@", id)
+        
+        do {
+            guard let photos = try? context.fetch(fetchRequest) as? [Photo],
+                  let photo = photos.first else {return}
+            photo.url = newUrl
+            photo.title = title
+         
+            appDelegate.saveContext()
+        }
+    }
+    
+    public func deletePhotoPredicate(with id: Int16) {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Photo")
+        fetchRequest.predicate = NSPredicate(format: "id == %@", id)
+        
+        do {
+            guard let photos = try? context.fetch(fetchRequest) as? [Photo],
+                  let photo = photos.first else {return}
+            context.delete(photo)
+        }
+        appDelegate.saveContext()
+    }
+
+
+
 }
 
 
