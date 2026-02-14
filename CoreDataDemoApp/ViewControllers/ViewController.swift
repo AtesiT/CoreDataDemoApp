@@ -4,7 +4,8 @@ final class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        CoreDataManager.shared.fetchPhotos()
+//        CoreDataManager.shared.createPhoto(1, title: "1", url: "https://www.google.com")
     }
 
 

@@ -12,14 +12,14 @@ public final class CoreDataManager: NSObject {
     //  В Core Data, чтобы работать с базой данных, необходимо получить доступ к PersistanceContainer (это делается через свойство appdelegate)
     private var appDelegate: AppDelegate {
         //  Приложение не упадет, потому что 100% скастится до AppDelegate
-        URLSession.shared.delegate as! AppDelegate
+        UIApplication.shared.delegate as! AppDelegate
     }
     
     private var context: NSManagedObjectContext {
         appDelegate.persistentContainer.viewContext
     }
     //  MARK: - Create
-    public func createPhoto(_ id: Int16, _ title: String, _ url: String?) {
+    public func createPhoto(_ id: Int16, title: String, url: String?) {
         guard let photoEntityDescription = NSEntityDescription.entity(forEntityName: "Photo", in: context) else {
             return
         }
